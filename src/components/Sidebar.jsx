@@ -1,37 +1,60 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Home, BedDouble, Users, Megaphone, Calendar, User } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Home, BedDouble, Users, Megaphone, Calendar, User, LogOut, Eye } from "lucide-react";
+import { logout } from "../utils/auth";
 
-const menuItems = [
-  { name: "Dashboard", icon: <Home size={18} />, path: "/dashboard" },
-  { name: "Room Management", icon: <BedDouble size={18} />, path: "/roommanagement" },
-  { name: "Tenants", icon: <Users size={18} />, path: "/tenants" },
-  { name: "Announcements", icon: <Megaphone size={18} />, path: "/announcements" },
-  { name: "Cleaning Schedule", icon: <Calendar size={18} />, path: "/cleaningschedule" },
-  { name: "Visitor Management", icon: <User size={18} />, path: "/visitormanagement" },
-];
+export default function Sidebar({ isOpen, toggle }) {
+  const navigate = useNavigate();
 
-export default function Sidebar() {
+  const menuItems = [
+    { name: "Dashboard", icon: <Home size={18} />, path: "/dashboard" },
+    { name: "Rooms", icon: <BedDouble size={18} />, path: "/roommanagement" },
+    { name: "Tenants", icon: <Users size={18} />, path: "/tenants" },
+    { name: "Visitors", icon: <Eye size={18} />, path: "/visitormanagement" },
+    { name: "Announcements", icon: <Megaphone size={18} />, path: "/announcements" },
+    { name: "Cleaning Schedule", icon: <Calendar size={18} />, path: "/cleaningschedule" }
+  ];
+
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 h-screen fixed left-0 top-0 p-5">
-      <h2 className="text-lg font-semibold mb-6">🏠 BoardingHouse Pro</h2>
-      <ul className="space-y-2">
+    <div
+      className={`bg-white border-r p-4 transition-all duration-300 ${
+        isOpen ? "w-64" : "w-16"
+      }`}
+    >
+      <button onClick={toggle} className="mb-4">
+        {isOpen ? "Collapse" : "Expand"}
+      </button>
+
+      <nav className="flex flex-col gap-2">
         {menuItems.map((item) => (
-          <li key={item.name}>
-            <NavLink
-              to={item.path}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 ${
-                  isActive ? "bg-gray-200 font-medium" : ""
-                }`
-              }
-            >
-              {item.icon}
-              {item.name}
-            </NavLink>
-          </li>
+          <NavLink
+            key={item.name}
+            to={item.path}
+            className={({ isActive }) =>
+              `flex items-center gap-2 p-2 rounded hover:bg-gray-100 ${
+                isActive ? "bg-gray-200 font-semibold" : ""
+              }`
+            }
+          >
+            {item.icon}
+            {isOpen && item.name}
+          </NavLink>
         ))}
-      </ul>
-    </aside>
+
+        <button
+          onClick={() => {
+            logout();
+            navigate("/login");
+          }}
+          className="flex items-center gap-2 p-2 rounded hover:bg-red-100 mt-4 text-red-600"
+        >
+          <br />
+          <br />
+          <br />
+          <LogOut size={18} />
+          {isOpen && "Logout"}
+        </button>
+      </nav>
+    </div>
   );
 }
