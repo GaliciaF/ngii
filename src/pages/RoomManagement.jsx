@@ -46,26 +46,36 @@ export default function RoomManagement() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {rooms.filter((r) => r.number.includes(search)).map((room) => (
-          <div key={room.id} className="bg-lincoln20 border border-lincoln/20 p-6 rounded-2xl shadow-card hover:bg-lincoln30 transition-colors duration-200">
-            <div className="flex justify-between items-center mb-3">
-              <p className="text-lg font-semibold text-smoky">{`Room ${room.number}`}</p>
-              <span
-                className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  room.status === "available"
-                    ? "bg-lincoln/80 text-background"
-                    : room.status === "occupied"
-                    ? "bg-smoky20 text-smoky"
-                    : "bg-avocado40 text-background"
-                }`}
-              >
-                {room.status}
-              </span>
+        {rooms
+          .filter((r) => r.number.includes(search))
+          .map((room) => (
+            <div
+              key={room.id}
+              className="bg-lincoln20 border border-lincoln/20 p-6 rounded-2xl shadow-card hover:bg-lincoln30 transition-colors duration-200"
+            >
+              <div className="flex justify-between items-center mb-3">
+                <p className="text-lg font-semibold text-smoky">{`Room ${room.number}`}</p>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    room.status === "available"
+                      ? "bg-lincoln/80 text-background"
+                      : room.status === "occupied"
+                      ? "bg-smoky20 text-smoky"
+                      : "bg-avocado40 text-background"
+                  }`}
+                >
+                  {room.status}
+                </span>
+              </div>
+              <p className="text-smoky/80">{room.type} Room</p>
+              <p className="mt-3 font-semibold text-smoky">
+                {new Intl.NumberFormat("en-PH", {
+                  style: "currency",
+                  currency: "PHP",
+                }).format(room.price)} /month
+              </p>
             </div>
-            <p className="text-smoky/80">{room.type} Room</p>
-            <p className="mt-3 font-semibold text-smoky">${room.price}/month</p>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

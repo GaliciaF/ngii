@@ -1,38 +1,139 @@
-import React from "react";
+import { useState } from "react";
+import { CreditCard, Megaphone, Brush, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const schedule = [
-  { day: "Monday", rooms: "101, 102, 103", staff: "Anna Dela Cruz" },
-  { day: "Tuesday", rooms: "104, 105, 201", staff: "Mark Reyes" },
-  { day: "Wednesday", rooms: "202, 203, 204", staff: "Liza Gomez" },
-  { day: "Thursday", rooms: "205, 206, 207", staff: "Carlo Santos" },
-  { day: "Friday", rooms: "208, 209, 210", staff: "Rhea Cruz" },
-];
+export default function UserDashboard() {
+  const [active, setActive] = useState("payments");
+  const navigate = useNavigate();
 
-export default function CleaningSchedule() {
+  const handleLogout = () => {
+    localStorage.removeItem("role");
+    localStorage.removeItem("email");
+    navigate("/login");
+  };
+
+  const menuItems = [
+    { id: "payments", label: "Payment History", icon: <CreditCard size={18} /> },
+    { id: "announcements", label: "Announcements", icon: <Megaphone size={18} /> },
+    { id: "cleaning", label: "Cleaning Schedule", icon: <Brush size={18} /> },
+  ];
+
+  const payments = [
+    { date: "Oct 10, 2025", amount: "₱3,000", status: "Paid" },
+    { date: "Sep 10, 2025", amount: "₱3,000", status: "Paid" },
+  ];
+
+  const announcements = [
+    { title: "Water Maintenance", color: "lincoln", content: "Water supply will be temporarily unavailable on October 21, 2025, from 8AM to 12PM." },
+    { title: "WiFi Upgrade", color: "avocado", content: "The boarding house WiFi will be upgraded this weekend for faster internet speed." },
+  ];
+
+  const cleaningSchedule = [
+    { day: "Monday", rooms: "Room 1–3" },
+    { day: "Tuesday", rooms: "Room 4–6" },
+    { day: "Wednesday", rooms: "Room 7–9" },
+    { day: "Thursday", rooms: "Common Area" },
+    { day: "Friday", rooms: "Kitchen & Restrooms" },
+  ];
+
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-smoky">Cleaning Schedule</h1>
-
-      <div className="bg-lincoln20 border border-lincoln/20 rounded-2xl shadow-card overflow-x-auto">
-        <table className="w-full text-sm text-left">
-          <thead className="bg-lincoln30 text-background">
-            <tr>
-              <th className="py-3 px-4">Day</th>
-              <th className="py-3 px-4">Rooms</th>
-              <th className="py-3 px-4">Assigned Staff</th>
-            </tr>
-          </thead>
-          <tbody>
-            {schedule.map((s, i) => (
-              <tr key={i} className="border-t hover:bg-lincoln30 transition-colors duration-200">
-                <td className="py-2 px-4 font-medium">{s.day}</td>
-                <td className="py-2 px-4">{s.rooms}</td>
-                <td className="py-2 px-4">{s.staff}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="space-y-8 p-6 bg-lincoln/5 min-h-screen">
+      {/* Logout Button */}
+      <div className="flex justify-end">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 px-5 py-2 bg-red-500 text-white rounded-2xl hover:bg-red-600 transition-shadow shadow-sm"
+        >
+          <LogOut size={16} />
+          Logout
+        </button>
       </div>
+
+      {/* Tabs */}
+      <div className="flex gap-4 border-b pb-2">
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setActive(item.id)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-2xl font-medium transition-colors ${
+              active === item.id
+                ? "bg-lincoln text-white shadow-md"
+                : "text-gray-600 hover:text-lincoln hover:bg-gray-50"
+            }`}
+          >
+            {item.icon}
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Content */}
+      {active === "payments" && (
+        <section>
+          <h2 className="text-2xl font-bold mb-6 text-lincoln">Payment History</h2>
+          <div className="bg-lincoln20 border border-lincoln/20 rounded-2xl shadow-card overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead className="bg-lincoln30 text-background">
+                <tr>
+                  <th className="py-3 px-4">Date</th>
+                  <th className="py-3 px-4">Amount</th>
+                  <th className="py-3 px-4">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {payments.map((p, i) => (
+                  <tr key={i} className="border-t hover:bg-lincoln30 transition-colors duration-200">
+                    <td className="py-2 px-4 font-medium">{p.date}</td>
+                    <td className="py-2 px-4">{p.amount}</td>
+                    <td className={`py-2 px-4 font-medium ${p.status === "Paid" ? "text-green-600" : "text-red-600"}`}>{p.status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {active === "announcements" && (
+        <section>
+          <h2 className="text-2xl font-bold mb-6 text-lincoln">Announcements</h2>
+          <div className="grid gap-4">
+            {announcements.map((a, i) => (
+              <div
+                key={i}
+                className={`bg-${a.color}20 border border-${a.color}/20 rounded-2xl shadow-card p-5 hover:shadow-md transition-shadow`}
+              >
+                <h3 className={`font-semibold text-${a.color} mb-1`}>{a.title}</h3>
+                <p className="text-gray-600 text-sm">{a.content}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {active === "cleaning" && (
+        <section>
+          <h2 className="text-2xl font-bold mb-6 text-lincoln">Cleaning Schedule</h2>
+          <div className="bg-lincoln20 border border-lincoln/20 rounded-2xl shadow-card overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead className="bg-lincoln30 text-background">
+                <tr>
+                  <th className="py-3 px-4">Day</th>
+                  <th className="py-3 px-4">Rooms</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cleaningSchedule.map((c, i) => (
+                  <tr key={i} className="border-t hover:bg-lincoln30 transition-colors duration-200">
+                    <td className="py-2 px-4 font-medium">{c.day}</td>
+                    <td className="py-2 px-4">{c.rooms}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

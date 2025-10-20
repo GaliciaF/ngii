@@ -1,12 +1,14 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Home, BedDouble, Users, Megaphone, Calendar, LogOut } from "lucide-react";
+import { Home, BedDouble, Users, Megaphone, Calendar, Eye, LogOut, CreditCard } from "lucide-react";
 
 const menuItems = [
   { name: "Dashboard", icon: <Home size={18} />, path: "/dashboard" },
   { name: "Rooms", icon: <BedDouble size={18} />, path: "/roommanagement" },
   { name: "Tenants", icon: <Users size={18} />, path: "/tenants" },
   { name: "Visitors", icon: <Calendar size={18} />, path: "/visitormanagement" },
+      {name: "Payments", icon: <CreditCard size={18} />, path: "/payments" },
+
   { name: "Cleaning", icon: <Calendar size={18} />, path: "/cleaningschedule" },
   { name: "Announcements", icon: <Megaphone size={18} />, path: "/announcements" },
 ];

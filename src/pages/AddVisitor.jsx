@@ -3,77 +3,82 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddVisitor() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", tenant: "", date: "", purpose: "" });
+  const [form, setForm] = useState({
+    name: "",
+    contact: "",
+    date: "",
+    purpose: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Visitor added successfully!");
-    navigate("/visitormanagement");
+    navigate("/visitors");
   };
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-smoky">Add Visitor</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-lime20/20 p-6 rounded-2xl shadow-card w-full max-w-md border border-smoky20"
-      >
-        <label className="block mb-3 text-smoky">
-          Visitor Name
+    <div className="p-6 flex flex-col items-center">
+      <div className="bg-lincoln20 p-6 rounded-2xl shadow-card w-full max-w-lg">
+        <h2 className="text-xl font-semibold text-lincoln mb-4">Add Visitor</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
+            name="name"
+            placeholder="Visitor Name"
             value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="border w-full p-2 rounded-md focus:ring-2 focus:ring-avocado mt-1"
+            onChange={handleChange}
+            className="w-full p-3 border border-lincoln30 rounded-xl focus:outline-none focus:ring-2 focus:ring-avocado"
             required
           />
-        </label>
-        <label className="block mb-3 text-smoky">
-          Tenant Visited
           <input
             type="text"
-            value={form.tenant}
-            onChange={(e) => setForm({ ...form, tenant: e.target.value })}
-            className="border w-full p-2 rounded-md focus:ring-2 focus:ring-avocado mt-1"
+            name="contact"
+            placeholder="Contact Number"
+            value={form.contact}
+            onChange={handleChange}
+            className="w-full p-3 border border-lincoln30 rounded-xl focus:outline-none focus:ring-2 focus:ring-avocado"
             required
           />
-        </label>
-        <label className="block mb-3 text-smoky">
-          Date
           <input
             type="date"
+            name="date"
             value={form.date}
-            onChange={(e) => setForm({ ...form, date: e.target.value })}
-            className="border w-full p-2 rounded-md focus:ring-2 focus:ring-avocado mt-1"
+            onChange={handleChange}
+            className="w-full p-3 border border-lincoln30 rounded-xl focus:outline-none focus:ring-2 focus:ring-avocado"
             required
           />
-        </label>
-        <label className="block mb-3 text-smoky">
-          Purpose
-          <input
-            type="text"
+          <textarea
+            name="purpose"
+            placeholder="Purpose of Visit"
             value={form.purpose}
-            onChange={(e) => setForm({ ...form, purpose: e.target.value })}
-            className="border w-full p-2 rounded-md focus:ring-2 focus:ring-avocado mt-1"
+            onChange={handleChange}
+            className="w-full p-3 border border-lincoln30 rounded-xl focus:outline-none focus:ring-2 focus:ring-avocado"
+            rows="3"
             required
           />
-        </label>
-        <div className="flex gap-3 mt-4">
-          <button
-            type="submit"
-            className="bg-lincoln text-background px-4 py-2 rounded-md hover:bg-avocado transition"
-          >
-            Add Visitor
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("/visitormanagement")}
-            className="border px-4 py-2 rounded-md text-smoky hover:bg-avocado/20 transition"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+
+          <div className="flex justify-between mt-4">
+            <button
+              type="button"
+              onClick={() => navigate("/visitors")}
+              className="px-4 py-2 bg-smoky20 text-lincoln rounded-xl hover:bg-lincoln30 transition-all"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-lincoln text-white rounded-xl hover:bg-avocado transition-all"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

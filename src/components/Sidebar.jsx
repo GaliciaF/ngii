@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Home, BedDouble, Users, Megaphone, Calendar, LogOut, Eye } from "lucide-react";
+import { Home, BedDouble, Users, Megaphone, Calendar, Eye, LogOut, CreditCard } from "lucide-react";
 import { logout } from "../utils/auth";
 
 export default function Sidebar({ isOpen, toggle }) {
@@ -11,6 +11,7 @@ export default function Sidebar({ isOpen, toggle }) {
     { name: "Rooms", icon: <BedDouble size={18} />, path: "/roommanagement" },
     { name: "Tenants", icon: <Users size={18} />, path: "/tenants" },
     { name: "Visitors", icon: <Eye size={18} />, path: "/visitormanagement" },
+    {name: "Payments", icon: <CreditCard size={18} />, path: "/payments" },
     { name: "Announcements", icon: <Megaphone size={18} />, path: "/announcements" },
     { name: "Cleaning Schedule", icon: <Calendar size={18} />, path: "/cleaningschedule" },
   ];

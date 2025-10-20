@@ -27,7 +27,7 @@ export default function Dashboard() {
         {[
           { title: "Total Rooms", value: "48", sub: "45 occupied, 3 available" },
           { title: "Active Tenants", value: "67", sub: "+3 from last month" },
-          { title: "Monthly Revenue", value: "$14,200", sub: "+$400 from last month" },
+          { title: "Monthly Revenue", value: "14,200", sub: "+$400 from last month" },
           { title: "Pending Issues", value: "8", sub: "3 maintenance, 5 payments" },
         ].map((card) => (
           <div key={card.title} className="bg-lincoln20 border border-lincoln/20 rounded-2xl shadow-card p-6 hover:bg-lincoln30 transition-colors duration-200">
