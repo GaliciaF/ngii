@@ -17,7 +17,7 @@ export default function AddVisitor() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Visitor added successfully!");
-    navigate("/visitors");
+    navigate("/visitormanagement");
   };
 
   return (
