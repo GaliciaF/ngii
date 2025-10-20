@@ -90,16 +90,7 @@ export default function Register() {
             required
           />
 
-          {/* Optional Role Selector (for testing different dashboards) */}
-          <select
-            name="role"
-            value={form.role}
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-avocado"
-          >
-            <option value="tenant">Tenant</option>
-            <option value="admin">Admin</option>
-          </select>
+         
 
           <button
             type="submit"

@@ -9,7 +9,7 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // ⚠️ Example login logic — replace with real backend validation later
+    // Example login logic — replace with real backend validation later
     if (email === "admin@gmail.com" && password === "admin123") {
       localStorage.setItem("role", "admin");
       navigate("/dashboard"); // Redirect to admin panel
@@ -58,6 +58,19 @@ export default function Login() {
             Login
           </button>
         </form>
+
+        {/* Register link */}
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-600">
+            Don't have an account?{" "}
+            <button
+              onClick={() => navigate("/register")}
+              className="text-lincoln font-medium hover:underline"
+            >
+              Register here
+            </button>
+          </p>
+        </div>
 
         <p className="text-center text-sm text-gray-600 mt-6">
           Try demo accounts:
