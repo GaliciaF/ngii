@@ -6,6 +6,8 @@ const announcements = [
   { id: 2, title: "Maintenance Schedule", message: "Room 101 and 102 will be cleaned on Oct 22" },
 ];
 
+  
+
 export default function Announcements() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");

@@ -65,7 +65,7 @@ export default function AddVisitor() {
           <div className="flex justify-between mt-4">
             <button
               type="button"
-              onClick={() => navigate("/visitors")}
+              onClick={() => navigate("/visitormanagement")}
               className="px-4 py-2 bg-smoky20 text-lincoln rounded-xl hover:bg-lincoln30 transition-all"
             >
               Cancel

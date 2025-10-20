@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import { useNavigate } from "react-router-dom";
 
 export default function AddRoom() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     roomNumber: "",
-    capacity: "",
+    roomType: "",
     rate: "",
     status: "Available",
   });
@@ -35,15 +35,21 @@ export default function AddRoom() {
             className="w-full p-3 border border-lincoln30 rounded-xl focus:outline-none focus:ring-2 focus:ring-avocado"
             required
           />
-          <input
-            type="number"
-            name="capacity"
-            placeholder="Capacity"
-            value={form.capacity}
+
+          <select
+            name="roomType"
+            value={form.roomType}
             onChange={handleChange}
             className="w-full p-3 border border-lincoln30 rounded-xl focus:outline-none focus:ring-2 focus:ring-avocado"
             required
-          />
+          >
+            <option value="" disabled>Select Room Type</option>
+            <option value="Single">Single</option>
+            <option value="Double">Double</option>
+            <option value="Dormitory">Dormitory</option>
+            <option value="Suite">Suite</option>
+          </select>
+
           <input
             type="number"
             name="rate"
@@ -53,6 +59,7 @@ export default function AddRoom() {
             className="w-full p-3 border border-lincoln30 rounded-xl focus:outline-none focus:ring-2 focus:ring-avocado"
             required
           />
+
           <select
             name="status"
             value={form.status}

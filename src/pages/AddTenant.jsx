@@ -17,7 +17,7 @@ export default function AddTenant() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Tenant added successfully!");
-    navigate("/boarders");
+    navigate("/tenants");
   };
 
   return (
